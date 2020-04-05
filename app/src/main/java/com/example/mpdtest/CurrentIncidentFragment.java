@@ -92,9 +92,9 @@ public class CurrentIncidentFragment extends Fragment implements View.OnClickLis
             new GetPlannedRoadworksData(this, PlannedRoadworksurl).execute();
             addPlannedRoadworksText();
             //showSearchBar();
-        } else if (v.getId() == R.id.searchButton) {
+        }// else if (v.getId() == R.id.searchButton) {
             //searchList();
-        }
+        //}
     }
 
 //    public void showSearchBar() {
