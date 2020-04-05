@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_layout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mpdtest.CurrentIncidentFragment"
+    android:background="@color/lightBlue">
+
+    <Button
+        android:id="@+id/CIResults"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="70dp"
+        android:text="See Current Incidents"
+        android:textSize="12sp"/>
+
+    <Button
+        android:id="@+id/rdWrkResults"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@id/CIResults"
+        android:layout_alignStart="@id/CIResults"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="45dp"
+        android:text="See Current Roadworks"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/plndRdWrkResults"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@id/rdWrkResults"
+        android:layout_alignStart="@id/rdWrkResults"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="45dp"
+        android:text="See Planned Roadworks"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/DynamText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="240dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+    <ListView
+        android:id="@+id/List"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/DynamText"
+        android:layout_marginTop="25dp"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/lightBlue">
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:text="Look at a list or use the Map mode"
+        />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/header"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="20dp"
+        android:text="All incidents/Roadworks"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/mapButton"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/header"
+        android:layout_alignStart="@id/startButton"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="150dp"
+        android:text="Map Mode"/>
+
+    <TextView
+        android:id="@+id/acknowledgement"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/startButton"
+        android:layout_marginTop="60dp"
+        android:text="Traffic Scotland Road Data"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="15sp" />
+
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@id/acknowledgement"
+        android:layout_marginTop="25dp"/>
+
+</RelativeLayout>

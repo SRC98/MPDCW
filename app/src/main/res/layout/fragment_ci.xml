@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_layout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mpdtest.CurrentIncidentFragment"
+    android:background="@color/lightBlue">
+
+    <Button
+        android:id="@+id/CIResults"
+        android:layout_width="100dp"
+        android:layout_height="74dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="See Current Incidents"
+        android:textSize="12sp"/>
+
+    <Button
+        android:id="@+id/rdWrkResults"
+        android:layout_width="100dp"
+        android:layout_height="74dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@id/CIResults"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="10dp"
+        android:text="See Current Roadworks"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/plndRdWrkResults"
+        android:layout_width="100dp"
+        android:layout_height="74dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@id/rdWrkResults"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="10dp"
+        android:text="See Planned Roadworks"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/DynamText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/rdWrkResults"
+        android:layout_marginTop="80dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+<!--    <Button-->
+<!--        android:id="@+id/searchButton"-->
+<!--        android:layout_width="70dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_alignTop="@id/DynamText"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_alignStart="@id/searchBar"-->
+<!--        android:layout_marginStart="200dp"-->
+<!--        android:text="Search"-->
+<!--        android:textSize="12sp"-->
+<!--        android:visibility="gone"/>-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/searchBar"-->
+<!--        android:layout_width="200dp"-->
+<!--        android:layout_height="30dp"-->
+<!--        android:layout_alignTop="@id/DynamText"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:text="Search"-->
+<!--        android:textSize="12sp"-->
+<!--        android:visibility="gone"/>-->
+
+    <ListView
+        android:id="@+id/List"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/DynamText"
+        android:layout_marginTop="20dp"/>
+
+</RelativeLayout>
