@@ -1,5 +1,8 @@
 package com.example.mpdtest;
 
+//Name - Shaun Cooper
+// Matric Number - S1623587
+
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;

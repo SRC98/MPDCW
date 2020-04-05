@@ -1,5 +1,8 @@
 package com.example.mpdtest;
 
+//Name - Shaun Cooper
+// Matric Number - S1623587
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Fragment;

@@ -1,5 +1,8 @@
 package com.example.mpdtest;
 
+//Name - Shaun Cooper
+// Matric Number - S1623587
+
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
