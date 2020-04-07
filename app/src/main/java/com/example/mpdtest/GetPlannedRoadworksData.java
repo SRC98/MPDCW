@@ -79,13 +79,13 @@ public class GetPlannedRoadworksData extends AsyncTask<ArrayList<String>, Void, 
                         insideItem = true;
                     } else if (myParser.getName().equalsIgnoreCase("title")) {
                         if (insideItem)
-                            result.add("Road:  " + myParser.nextText());
+                            result.add("Road: " + myParser.nextText());
                     } else if (myParser.getName().equalsIgnoreCase("description")) {
                         if (insideItem)
-                            result.add("Description:  " + myParser.nextText());
+                            result.add("Description: " + myParser.nextText());
                     } else if (myParser.getName().equalsIgnoreCase("pubdate")) {
                         if (insideItem)
-                            result.add("Date:  " + myParser.nextText());
+                            result.add("Date: " + myParser.nextText());
                     }
                 } else if (event == XmlPullParser.END_TAG && myParser.getName().equalsIgnoreCase("item")) {
                     insideItem = false;

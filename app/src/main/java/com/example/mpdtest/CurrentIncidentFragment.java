@@ -6,6 +6,7 @@ package com.example.mpdtest;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.InputFilter;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -27,12 +28,13 @@ public class CurrentIncidentFragment extends Fragment implements View.OnClickLis
     private View view;
     private TextView DynamText;
     private ListView List;
-    //private EditText searchBar;
+    private EditText searchBar;
     private ArrayList<String> savedResults = new ArrayList<>();
+    private ArrayList<String> searchedResults = new ArrayList<>();
     private Button CIButton;
     private Button rdWrkResultsButton;
     private Button plndRdWrkResultsButton;
-    //private Button searchButton;
+    private Button searchButton;
     private String CurrentIncidenturl = "https://trafficscotland.org/rss/feeds/currentincidents.aspx";
     private String CurrentRoadworksurl =  "https://trafficscotland.org/rss/feeds/roadworks.aspx";
     private String PlannedRoadworksurl = "https://trafficscotland.org/rss/feeds/plannedroadworks.aspx";
@@ -47,11 +49,12 @@ public class CurrentIncidentFragment extends Fragment implements View.OnClickLis
         DynamText = (TextView) view.findViewById(R.id.DynamText);
 
         //Getting search bar
-        //searchBar = (EditText) view.findViewById(R.id.searchBar);
+        searchBar = (EditText) view.findViewById(R.id.searchBar);
+        searchBar.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
 
         //Getting search button and adding click listener
-        //searchButton = (Button) view.findViewById(R.id.searchButton);
-        //searchButton.setOnClickListener(this);
+        searchButton = (Button) view.findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(this);
 
         //Get List View
         List = (ListView) view.findViewById(R.id.List);
@@ -86,37 +89,46 @@ public class CurrentIncidentFragment extends Fragment implements View.OnClickLis
         if (v.getId() == R.id.CIResults)  {
             new GetCurrentIncidentsData(this, CurrentIncidenturl).execute();
             addCurrentIncidentText();
-            //showSearchBar();
+            showSearchBar();
         } else if (v.getId() == R.id.rdWrkResults) {
             new GetCurrentRoadworksData(this, CurrentRoadworksurl).execute();
             addCurrentRoadworksText();
-            //showSearchBar();
+            showSearchBar();
         } else if (v.getId() == R.id.plndRdWrkResults) {
             new GetPlannedRoadworksData(this, PlannedRoadworksurl).execute();
             addPlannedRoadworksText();
-            //showSearchBar();
-        }// else if (v.getId() == R.id.searchButton) {
-            //searchList();
-        //}
+            showSearchBar();
+        } else if (v.getId() == R.id.searchButton) {
+            searchList();
+        }
     }
 
-//    public void showSearchBar() {
-//        searchButton.setVisibility(View.VISIBLE);
-//        searchBar.setVisibility(View.VISIBLE);
-//    }
-//
-//    public void searchList() {
-//        ArrayList<String> searchedResults = new ArrayList<>();
-//
-//        for (String search : savedResults) {
-//            if (search.contains(searchBar.getText())) {
-//                searchedResults.add(search);
-//            }
-//        }
-//
-//        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, searchedResults);
-//        List.setAdapter(adapter);
-//    }
+    public void showSearchBar() {
+        searchButton.setVisibility(View.VISIBLE);
+        searchBar.setVisibility(View.VISIBLE);
+    }
+
+    public void searchList() {
+
+        searchedResults.clear();
+
+        for (int i = 0; i < savedResults.size(); i++) {
+
+            if (savedResults.get(i).contains(searchBar.getText())) {
+                if (!searchedResults.contains(savedResults.get(i))) {
+
+                    searchedResults.add(savedResults.get(i));
+                    searchedResults.add(savedResults.get(i+1));
+                    searchedResults.add(savedResults.get(i+2));
+
+                }
+            }
+        }
+
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, searchedResults);
+        List.setAdapter(adapter);
+    }
+
 
     //A data call back for Current Incidents
     public void callBackDataCI(ArrayList<String> result) {

@@ -892,6 +892,8 @@ id screen
 id scrollIndicatorDown
 id scrollIndicatorUp
 id scrollView
+id searchBar
+id searchButton
 id search_badge
 id search_bar
 id search_button

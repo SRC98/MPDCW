@@ -87,6 +87,7 @@ public class GetCurrentIncidentsData extends AsyncTask<ArrayList<String>, Void, 
                         if (insideItem)
                             result.add("Date:  " + myParser.nextText());
                     }
+
                 } else if (event == XmlPullParser.END_TAG && myParser.getName().equalsIgnoreCase("item")) {
                     insideItem = false;
                 }

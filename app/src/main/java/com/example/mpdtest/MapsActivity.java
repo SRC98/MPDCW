@@ -33,6 +33,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Button backButton;
     ArrayList markerPoints = new ArrayList();
     ArrayList<String> jLatLng = new ArrayList<>();
+    List<Marker> mMarkers = new ArrayList<>();
     private String MY_API_KEY = "AIzaSyA_8S1oBtQ7LBwexp7FgfhL6E2fcVN-9-4";
     private String CurrentIncidenturl = "https://trafficscotland.org/rss/feeds/currentincidents.aspx";
     private String CurrentRoadworksurl = "https://trafficscotland.org/rss/feeds/roadworks.aspx";
@@ -303,37 +305,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         prgDialog.setMessage("Loading...");
         prgDialog.show();
 
+        removeMarkers();
+
         new GetRWDataMaps(this, CurrentRoadworksurl).execute();
         new GetCIDataMaps(this, CurrentIncidenturl).execute();
-
     }
 
 
     public void callBackCIDataMaps(ArrayList<String> result) {
         ArrayList<String> ciResults = new ArrayList();
-        String title = "";
-        String coords = "";
+        String info = "";
+        String coords;
         String[] splitCoords;
-        Double latCoords = 0.0;
-        Double lngCoords = 0.0;
+        Double latCoords;
+        Double lngCoords;
 
-        String jCoords = "";
+        String jCoords;
         String[] splitJCoords;
-        Double jLatCoords = 0.0;
-        Double jLngCoords = 0.0;
+        Double jLatCoords;
+        Double jLngCoords;
 
-        Double distBetw = 0.0;
+        Double distBetw;
 
         // For each result returned it checks for certain strings and will do actions if the strings are found
-        for (String ciresults : result) {
-            if (ciresults.contains("Incident")) {
-                ciResults.add(ciresults);
-                title = ciresults;
-            } else if (ciresults.contains("Description")) {
-                ciResults.add(ciresults);
-            } else if (ciresults.contains("LatLng")) { // Finds LatLng string
-                ciResults.add(ciresults);
-                coords = ciresults; // Puts results in coords string
+        for (int i = 0; i < result.size(); i++) {
+            if (result.get(i).contains("Incident")) {
+                ciResults.add(result.get(i));
+                info = result.get(i);
+            } else if (result.get(i).contains("Description")) {
+                ciResults.add(result.get(i));
+            } else if (result.get(i).contains("LatLng")) { // Finds LatLng string
+                ciResults.add(result.get(i));
+                coords = result.get(i); // Puts results in coords string
                 splitCoords = coords.split("\\s+"); // Splits the coords string by whitespace
                 latCoords = Double.parseDouble(splitCoords[1]);
                 lngCoords = Double.parseDouble(splitCoords[2]); // Parses each split string into a double field
@@ -346,12 +349,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     distBetw = distance(latCoords, lngCoords, jLatCoords, jLngCoords); // Check the distance between the two locations
 
                     if (distBetw < 0.1) { //If the incident are within 0.1 of a mile it will display a marker
-                        mMap.addMarker(new MarkerOptions().position(new LatLng(latCoords, lngCoords)).title(title));
+                        Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(latCoords, lngCoords)).title(info));
+
+                        mMarkers.add(marker);
                     }
                 }
 
-            } else if (ciresults.contains("Date")) {
-                ciResults.add(ciresults);
+            } else if (result.get(i).contains("Date")) {
+                ciResults.add(result.get(i));
             }
         }
         prgDialog.dismiss();
@@ -373,15 +378,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double distBetw = 0.0;
 
         // For each result returned it checks for certain strings and will do actions if the strings are found
-        for (String RWresults : result) {
-            if (RWresults.contains("Roadworks")) {
-                rwResults.add(RWresults);
-                title = RWresults;
-            } else if (RWresults.contains("Description")) {
-                rwResults.add(RWresults);
-            } else if (RWresults.contains("LatLng")) { // Finds LatLng string
-                rwResults.add(RWresults);
-                coords = RWresults; // Puts results in coords string
+        for (int i = 0; i < result.size(); i++) {
+            if (result.get(i).contains("Roadworks")) {
+                rwResults.add(result.get(i));
+                title = result.get(i);
+            } else if (result.get(i).contains("Description")) {
+                rwResults.add(result.get(i));
+            } else if (result.get(i).contains("LatLng")) { // Finds LatLng string
+                rwResults.add(result.get(i));
+                coords = result.get(i); // Puts results in coords string
                 splitCoords = coords.split("\\s+"); // Splits the coords string by whitespace
                 latCoords = Double.parseDouble(splitCoords[1]);
                 lngCoords = Double.parseDouble(splitCoords[2]); // Parses each split string into a double field
@@ -394,12 +399,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     distBetw = distance(latCoords, lngCoords, jLatCoords, jLngCoords); // Check the distance between the two locations
 
                     if (distBetw < 0.1) { //If the roadworks are within 0.1 of a mile it will display a marker
-                        mMap.addMarker(new MarkerOptions().position(new LatLng(latCoords, lngCoords)).title(title));
+                        Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(latCoords, lngCoords)).title(title));
+
+                        mMarkers.add(marker);
                     }
                 }
 
-                } else if (RWresults.contains("Date")) {
-                    rwResults.add(RWresults);
+                } else if (result.get(i).contains("Date")) {
+                    rwResults.add(result.get(i));
             }
         }
     }
@@ -427,6 +434,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return dist;
     }
 
+
+    //Will remove previous markers when new route is created
+    private void removeMarkers() {
+        for (Marker marker : mMarkers) {
+            marker.setVisible(false);
+        }
+        mMarkers.clear();
+    }
+
+
+    //Saving elements for instance changes
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
